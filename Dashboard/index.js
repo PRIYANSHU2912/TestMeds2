@@ -63,11 +63,12 @@ async function fetch_data() {
     let response = await fetch('https://priyanshu2912.github.io/medicine_json2/medicines.json');
     let data = await response.json();
     let medicines = data.medicines;
+    let searchValue = med_name.value.toLowerCase(); // Convert the input value to lowercase
+
     medicines.forEach(function (item) {
-      if (med_name.value === item.name) {
+      if (searchValue === item.name.toLowerCase()) { // Convert the medicine name to lowercase
         execute(item);
       }
-
     });
 
     loader.classList.add('active');
@@ -76,6 +77,7 @@ async function fetch_data() {
     console.log(error);
   }
 }
+
 function execute(item) {
   name.innerText = `${item.name}`;
   expire.innerText = `${item.expiration_days} days`;
